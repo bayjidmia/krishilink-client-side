@@ -10,7 +10,7 @@ const Showproducts = ({ allProduct }) => {
         animate={{ opacity: 4, y: 4 }}
         transition={{ duration: 2 }}
       >
-        <div className="card hover:shadow-2xl transition-shadow duration-300 p-5 rounded-xl  bg-base-100 w-auto shadow-sm">
+        <div className="card hover:shadow-2xl transition-shadow duration-300 p-5 rounded-xl  bg-base-100 w-auto h-100 shadow-sm">
           <figure className="  bg-white shadow rounded overflow-hidden">
             <img className=" w-full h-60" src={allProduct.image} alt="Shoes" />
           </figure>

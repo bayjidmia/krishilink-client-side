@@ -4,6 +4,7 @@ import Home from "../Component/Home/Home";
 import Login from "../AuthenticationPage/Login/Login";
 import Register from "../AuthenticationPage/Registration/Register";
 import Allproducts from "../Pages/Allproducts/Allproducts";
+import Myprofile from "../Pages/Myprofile/Myprofile";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "/allproducts",
         Component: Allproducts,
+      },
+      {
+        path: "/profile",
+        Component: Myprofile,
       },
     ],
   },

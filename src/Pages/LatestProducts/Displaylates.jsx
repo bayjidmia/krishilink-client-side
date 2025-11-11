@@ -19,13 +19,11 @@ const Displaylates = ({ latestProduct }) => {
             {latestProduct.name}
             <div className="badge badge-secondary">NEW</div>
           </h2>
-          <p>
-            A card component has a figure, a body part, and inside body there
-            are title and actions parts
-          </p>
-          <div className="card-actions justify-end">
-            <div className="badge badge-outline">Fashion</div>
-            <div className="badge badge-outline">Products</div>
+          <p>Owner Email: {latestProduct.owner.ownerEmail}</p>
+          <div className="card-actions mt-2">
+            <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
+              View Details{" "}
+            </div>
           </div>
         </div>
       </div>

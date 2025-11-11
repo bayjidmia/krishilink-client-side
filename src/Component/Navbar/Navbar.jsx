@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../assets/image.png";
 import { NavLink } from "react-router";
+import { AuthContext } from "../../Authprovider/Context/Context";
+import { toast } from "react-toastify";
+import image from "../../assets/image copy.png";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+  const handlelogout = () => {
+    logout()
+      .then(() => {
+        toast("you are logOut");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <nav className="backdrop-blur-md bg-green-600 text-white shadow-lg sticky top-0 z-50">
       <div className="navbar container mx-auto px-4 py-2">
@@ -27,6 +40,9 @@ const Navbar = () => {
             <li>
               <NavLink to="/allproducts">All Crops</NavLink>
             </li>
+            <li>
+              <NavLink to="/profile">My Profile</NavLink>
+            </li>
           </ul>
         </div>
         {/* Right: Button */}
@@ -38,20 +54,29 @@ const Navbar = () => {
           >
             <div className="w-10 rounded-full  ">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                key={user?.photoURL}
+                alt="User avatar"
+                src={user?.photoURL || image}
               />
             </div>
           </div>
-          <div>
-            <h1 className="  lg:font-bold text-xl">
+
+          <h1 className="  lg:font-bold text-xl">
+            {user ? (
+              <button
+                onClick={handlelogout}
+                className="px-5 py-2 rounded-lg bg-green-700 text-white font-semibold border border-white/50 hover:bg-green-800 hover:scale-105 transition duration-300"
+              >
+                <a href="">Logout</a>
+              </button>
+            ) : (
               <NavLink to={"/login"}>
                 <button className="px-5 py-2 rounded-lg bg-green-700 text-white font-semibold border border-white/50 hover:bg-green-800 hover:scale-105 transition duration-300">
                   <a href="">Login</a>
                 </button>
               </NavLink>
-            </h1>
-          </div>
+            )}
+          </h1>
         </div>
 
         {/* Mobile Menu Dropdown */}
