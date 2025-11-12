@@ -40,6 +40,12 @@ const Navbar = () => {
             <li>
               <NavLink to="/allproducts">All Crops</NavLink>
             </li>
+            <li>
+              <NavLink to="">My Post</NavLink>
+            </li>
+            <li>
+              <NavLink to="">My Interest</NavLink>
+            </li>
 
             {user && (
               <>
@@ -110,7 +116,28 @@ const Navbar = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-green-700/90 rounded-box w-52"
-            ></ul>
+            >
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/allproducts">All Crops</NavLink>
+              </li>
+              <li>
+                <NavLink to="">My Post</NavLink>
+              </li>
+              <li>
+                <NavLink to="">My Interest</NavLink>
+              </li>
+
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="/profile">My Profile</NavLink>
+                  </li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
       </div>

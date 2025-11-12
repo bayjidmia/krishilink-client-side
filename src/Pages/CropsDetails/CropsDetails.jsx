@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Authprovider/Context/Context";
 import { useParams } from "react-router";
+import { useRef } from "react";
 
 const CropsDetails = () => {
   const { id } = useParams();
@@ -10,6 +11,16 @@ const CropsDetails = () => {
   const { user } = useContext(AuthContext);
   const [crop, setCrop] = useState(null);
   const [loading, setLoading] = useState(true);
+  const bidModelref = useRef(null);
+  const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState("");
+
+  const handlebidModel = () => {
+    bidModelref.current.showModal();
+  };
+  const closeModal = () => {
+    bidModelref.current.close();
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3000/allproducts/${id}`)
@@ -33,6 +44,37 @@ const CropsDetails = () => {
     );
 
   const isOwner = user?.email === crop?.owner?.ownerEmail;
+  const totalPrice = quantity * crop.pricePerUnit;
+
+  // handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (quantity < 1) {
+      alert("Quantity must be at least 1");
+      return;
+    }
+
+    if (
+      window.confirm(
+        `Are you sure you want to submit interest?\nTotal: ${totalPrice} ৳`
+      )
+    ) {
+      const interestData = {
+        cropId: crop._id,
+        buyerEmail: user.email,
+        quantity,
+        message,
+        totalPrice,
+      };
+
+      console.log("Interest submitted:", interestData);
+
+      alert("Interest submitted successfully!");
+      closeModal();
+      setQuantity(1);
+      setMessage("");
+    }
+  };
 
   return (
     <motion.div
@@ -87,12 +129,91 @@ const CropsDetails = () => {
         {/* 🌱 Button / Owner Message */}
         <div className="mt-6">
           {!isOwner ? (
-            <button
-              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-300"
-              onClick={() => alert("Interest form আসবে এখানে!")}
-            >
-              Send Interest
-            </button>
+            <div>
+              <button
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-300"
+                onClick={handlebidModel}
+              >
+                Send Interest
+              </button>
+              {/* Open the modal using document.getElementById('ID').showModal() method */}
+
+              <dialog
+                ref={bidModelref}
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  <h3 className="font-bold text-xl mb-4 text-green-700">
+                    Express Interest
+                  </h3>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Row 1: Quantity & Total Price */}
+                    <div className="flex gap-4">
+                      <div className="flex-1">
+                        <label className="block mb-1 font-medium">
+                          Quantity
+                        </label>
+                        <input
+                          type="number"
+                          min="1"
+                          value={quantity}
+                          onChange={(e) => setQuantity(Number(e.target.value))}
+                          className="w-full border rounded px-3 py-2"
+                          required
+                        />
+                      </div>
+
+                      <div className="flex-1">
+                        <label className="block mb-1 font-medium">
+                          Total Price
+                        </label>
+                        <input
+                          type="text"
+                          value={totalPrice.toFixed(2)}
+                          readOnly
+                          className="w-full border rounded px-3 py-2 bg-gray-100"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Row 2: Message + Submit */}
+                    <div className="flex gap-4">
+                      <div className="flex-1">
+                        <label className="block mb-1 font-medium">
+                          Message
+                        </label>
+                        <input
+                          type="text"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="Optional message"
+                          className="w-full border rounded px-3 py-2"
+                        />
+                      </div>
+
+                      <div className="flex-1 flex items-end justify-end">
+                        <button
+                          type="submit"
+                          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  <div className="modal-action">
+                    <button
+                      onClick={closeModal}
+                      className="btn bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </dialog>
+            </div>
           ) : (
             <p className="text-gray-500 font-medium italic text-center">
               You are the owner of this crop post.
