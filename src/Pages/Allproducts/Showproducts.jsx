@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router";
 
 const Showproducts = ({ allProduct }) => {
   console.log(allProduct);
@@ -21,9 +22,14 @@ const Showproducts = ({ allProduct }) => {
             </h2>
             <p>Owner Email: {allProduct.owner.ownerEmail}</p>
             <div className="card-actions mt-2">
-              <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
-                View Details{" "}
-              </div>
+              <NavLink
+                className={"w-full"}
+                to={`/cropsdetails/${allProduct._id}`}
+              >
+                <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
+                  View Details{" "}
+                </div>
+              </NavLink>
             </div>
           </div>
         </div>

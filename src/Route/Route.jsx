@@ -5,6 +5,8 @@ import Login from "../AuthenticationPage/Login/Login";
 import Register from "../AuthenticationPage/Registration/Register";
 import Allproducts from "../Pages/Allproducts/Allproducts";
 import Myprofile from "../Pages/Myprofile/Myprofile";
+import PrivateRoute from "../Pages/Privateroute/Privateroute";
+import CropsDetails from "../Pages/CropsDetails/CropsDetails";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        Component: Myprofile,
+        element: (
+          <PrivateRoute>
+            <Myprofile></Myprofile>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/cropsdetails/:id",
+        element: (
+          <PrivateRoute>
+            <CropsDetails></CropsDetails>
+          </PrivateRoute>
+        ),
       },
     ],
   },

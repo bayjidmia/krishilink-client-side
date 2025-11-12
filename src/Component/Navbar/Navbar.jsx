@@ -40,9 +40,14 @@ const Navbar = () => {
             <li>
               <NavLink to="/allproducts">All Crops</NavLink>
             </li>
-            <li>
-              <NavLink to="/profile">My Profile</NavLink>
-            </li>
+
+            {user && (
+              <>
+                <li>
+                  <NavLink to="/profile">My Profile</NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         {/* Right: Button */}
