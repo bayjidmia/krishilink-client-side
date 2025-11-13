@@ -9,6 +9,7 @@ import PrivateRoute from "../Pages/Privateroute/Privateroute";
 import CropsDetails from "../Pages/CropsDetails/CropsDetails";
 import MyInterests from "../Pages/MyInterests/MyInterests";
 import AddPost from "../Pages/AddPost/AddPost";
+import MyCrops from "../Pages/MyCrops/MyCrops";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddPost></AddPost>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/mycrops",
+        element: (
+          <PrivateRoute>
+            <MyCrops></MyCrops>
           </PrivateRoute>
         ),
       },

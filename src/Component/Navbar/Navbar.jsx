@@ -51,7 +51,7 @@ const Navbar = () => {
             {user && (
               <>
                 <li>
-                  <NavLink to="">My Post</NavLink>
+                  <NavLink to="/mycrops">My Post</NavLink>
                 </li>
               </>
             )}
@@ -151,7 +151,7 @@ const Navbar = () => {
               {user && (
                 <>
                   <li>
-                    <NavLink to="">My Post</NavLink>
+                    <NavLink to="/mycrops">My Post</NavLink>
                   </li>
                 </>
               )}
