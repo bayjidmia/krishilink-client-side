@@ -1,12 +1,24 @@
-import React, { use } from "react";
+import React, { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import Showproducts from "./Showproducts";
-const allproducts = fetch("http://localhost:3000/allproducts").then((res) =>
-  res.json()
-);
+import { useLocation } from "react-router";
+
 const Allproducts = () => {
-  const allProducts = use(allproducts);
-  console.log(allProducts);
+  const [allProducts, setallproduct] = useState([]);
+  const location = useLocation();
+  const addedCrop = location.state?.addedCrop;
+  useEffect(() => {
+    fetch("http://localhost:3000/allproducts")
+      .then((res) => res.json())
+      .then((data) => setallproduct(data))
+      .catch((err) => console.error(err));
+  }, []);
+  useEffect(() => {
+    if (addedCrop) {
+      setallproduct((prev) => [...prev, addedCrop]);
+    }
+  }, [addedCrop]);
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="p-6">

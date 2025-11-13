@@ -40,12 +40,29 @@ const Navbar = () => {
             <li>
               <NavLink to="/allproducts">All Crops</NavLink>
             </li>
-            <li>
-              <NavLink to="">My Post</NavLink>
-            </li>
-            <li>
-              <NavLink to="">My Interest</NavLink>
-            </li>
+
+            {user && (
+              <>
+                <li>
+                  <NavLink to="/addcrops">Add Post</NavLink>
+                </li>
+              </>
+            )}
+            {user && (
+              <>
+                <li>
+                  <NavLink to="">My Post</NavLink>
+                </li>
+              </>
+            )}
+
+            {user && (
+              <>
+                <li>
+                  <NavLink to="/my-interests">My Interest</NavLink>
+                </li>
+              </>
+            )}
 
             {user && (
               <>
@@ -123,12 +140,29 @@ const Navbar = () => {
               <li>
                 <NavLink to="/allproducts">All Crops</NavLink>
               </li>
-              <li>
-                <NavLink to="">My Post</NavLink>
-              </li>
-              <li>
-                <NavLink to="">My Interest</NavLink>
-              </li>
+
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="/addcrops">Add Post</NavLink>
+                  </li>
+                </>
+              )}
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="">My Post</NavLink>
+                  </li>
+                </>
+              )}
+
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="/my-interests">My Interest</NavLink>
+                  </li>
+                </>
+              )}
 
               {user && (
                 <>

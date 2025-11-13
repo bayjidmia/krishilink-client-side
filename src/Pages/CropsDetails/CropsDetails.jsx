@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../../Authprovider/Context/Context";
 import { useParams } from "react-router";
 import { useRef } from "react";
+import { toast } from "react-toastify";
+import ReceivedInterests from "./ReceivedInterests";
 
 const CropsDetails = () => {
   const { id } = useParams();
@@ -11,16 +13,10 @@ const CropsDetails = () => {
   const { user } = useContext(AuthContext);
   const [crop, setCrop] = useState(null);
   const [loading, setLoading] = useState(true);
-  const bidModelref = useRef(null);
+  const modalRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
-
-  const handlebidModel = () => {
-    bidModelref.current.showModal();
-  };
-  const closeModal = () => {
-    bidModelref.current.close();
-  };
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/allproducts/${id}`)
@@ -45,34 +41,50 @@ const CropsDetails = () => {
 
   const isOwner = user?.email === crop?.owner?.ownerEmail;
   const totalPrice = quantity * crop.pricePerUnit;
-
+  const hasInterest = crop?.interests?.some((i) => i.userEmail === user?.email);
   // handle form submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("After set true:", true);
     if (quantity < 1) {
-      alert("Quantity must be at least 1");
+      toast.error(" Quantity must be at least 1");
       return;
     }
 
-    if (
-      window.confirm(
-        `Are you sure you want to submit interest?\nTotal: ${totalPrice} ৳`
-      )
-    ) {
-      const interestData = {
-        cropId: crop._id,
-        buyerEmail: user.email,
-        quantity,
-        message,
-        totalPrice,
-      };
+    const newInterest = {
+      cropId: crop._id,
+      userEmail: user.email,
+      userName: user.displayName,
+      quantity: Number(quantity),
+      message,
+      status: "pending",
+    };
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("http://localhost:3000/interests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newInterest),
+      });
 
-      console.log("Interest submitted:", interestData);
+      if (res.ok) {
+        toast.success(" Interest submitted successfully!");
+        setTimeout(() => {
+          modalRef.current.close();
+          setIsSubmitting(false);
+        }, 1000);
 
-      alert("Interest submitted successfully!");
-      closeModal();
-      setQuantity(1);
-      setMessage("");
+        setQuantity("");
+        setMessage("");
+      } else {
+        toast.error(" Failed to submit interest");
+      }
+    } catch (err) {
+      toast.error("Server error occurred");
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -83,7 +95,6 @@ const CropsDetails = () => {
       transition={{ duration: 0.5 }}
       className="max-w-6xl mx-auto my-10 bg-white rounded-3xl shadow-xl border border-green-100 p-6 flex flex-col md:flex-row gap-6"
     >
-      {/* 🖼 Crop Image */}
       <div className="md:w-1/2 relative rounded-2xl overflow-hidden shadow-md">
         <img
           src={crop.image}
@@ -95,7 +106,6 @@ const CropsDetails = () => {
         </span>
       </div>
 
-      {/* 🌾 Crop Info */}
       <div className="md:w-1/2 flex flex-col justify-between">
         <div>
           <h1 className="text-4xl font-bold text-green-700 mb-4">
@@ -126,20 +136,18 @@ const CropsDetails = () => {
           </div>
         </div>
 
-        {/* 🌱 Button / Owner Message */}
         <div className="mt-6">
           {!isOwner ? (
             <div>
               <button
                 className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-xl shadow-md transition-all duration-300"
-                onClick={handlebidModel}
+                onClick={() => modalRef.current.showModal()}
               >
                 Send Interest
               </button>
-              {/* Open the modal using document.getElementById('ID').showModal() method */}
 
               <dialog
-                ref={bidModelref}
+                ref={modalRef}
                 className="modal modal-bottom sm:modal-middle"
               >
                 <div className="modal-box">
@@ -177,7 +185,6 @@ const CropsDetails = () => {
                       </div>
                     </div>
 
-                    {/* Row 2: Message + Submit */}
                     <div className="flex gap-4">
                       <div className="flex-1">
                         <label className="block mb-1 font-medium">
@@ -195,9 +202,14 @@ const CropsDetails = () => {
                       <div className="flex-1 flex items-end justify-end">
                         <button
                           type="submit"
-                          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                          disabled={hasInterest}
+                          className={`px-4 py-2 rounded text-white transition-all duration-300 ${
+                            hasInterest
+                              ? "bg-gray-400 cursor-not-allowed"
+                              : "bg-green-600 hover:bg-green-700"
+                          }`}
                         >
-                          Submit
+                          {hasInterest ? "Interest Submitted" : "Send Interest"}
                         </button>
                       </div>
                     </div>
@@ -205,7 +217,8 @@ const CropsDetails = () => {
 
                   <div className="modal-action">
                     <button
-                      onClick={closeModal}
+                      type="button"
+                      onClick={() => modalRef.current.close()}
                       className="btn bg-gray-200 text-gray-700 hover:bg-gray-300"
                     >
                       Close
@@ -220,6 +233,8 @@ const CropsDetails = () => {
             </p>
           )}
         </div>
+
+        {isOwner && <ReceivedInterests crop={crop} setCrop={setCrop} />}
       </div>
     </motion.div>
   );

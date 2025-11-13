@@ -57,6 +57,7 @@ const Login = () => {
     GooglesignIn()
       .then((result) => {
         const user = result.user;
+        console.log(user);
         setuser(user);
         navigate("/");
       })

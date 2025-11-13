@@ -7,6 +7,8 @@ import Allproducts from "../Pages/Allproducts/Allproducts";
 import Myprofile from "../Pages/Myprofile/Myprofile";
 import PrivateRoute from "../Pages/Privateroute/Privateroute";
 import CropsDetails from "../Pages/CropsDetails/CropsDetails";
+import MyInterests from "../Pages/MyInterests/MyInterests";
+import AddPost from "../Pages/AddPost/AddPost";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CropsDetails></CropsDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-interests",
+        element: (
+          <PrivateRoute>
+            <MyInterests></MyInterests>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/addcrops",
+        element: (
+          <PrivateRoute>
+            <AddPost></AddPost>
           </PrivateRoute>
         ),
       },
