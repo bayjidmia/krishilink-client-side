@@ -10,6 +10,7 @@ import CropsDetails from "../Pages/CropsDetails/CropsDetails";
 import MyInterests from "../Pages/MyInterests/MyInterests";
 import AddPost from "../Pages/AddPost/AddPost";
 import MyCrops from "../Pages/MyCrops/MyCrops";
+import Error from "../Pages/Error/Error";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,11 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+
+  {
+    path: "*",
+    Component: Error,
   },
 ]);
 

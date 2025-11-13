@@ -1,7 +1,43 @@
 import EditCropModal from "./EditCropModal";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 
 const CropRow = ({ crop, setCrops }) => {
+  const handleDelete = (_id) => {
+    // const confirm = window.confirm(
+    //   "Are you sure you want to delete this crop?"
+    // );
+    // if (!confirm) return;
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/api/crops/${_id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+
+        setCrops((prev) => prev.filter((c) => c._id !== _id));
+      }
+    });
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -28,7 +64,7 @@ const CropRow = ({ crop, setCrops }) => {
           Edit
         </button>
         <button
-          // onClick={handleDelete}
+          onClick={() => handleDelete(crop._id)}
           className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
         >
           Delete
