@@ -1,29 +1,44 @@
-import React, { use } from "react";
+import React, { Suspense, use } from "react";
 import Banner from "../../Pages/Banner/Banner";
 import Services from "../Services/Services";
 import LatestProducts from "../../Pages/LatestProducts/LatestProducts";
-import { MotionConfig } from "motion/react";
 import { motion } from "framer-motion";
+import Loading from "../../Component/Loading/Loading"; // ✅ তোমার Loading component
 
 const latestproducts = fetch("http://localhost:3000/latestproducts").then(
   (res) => res.json()
 );
 
-const Home = () => {
+const HomeContent = () => {
   const latestProducts = use(latestproducts);
-  console.log(latestProducts);
+
   return (
     <div>
-      <Banner></Banner>
-      <LatestProducts latestProducts={latestProducts}></LatestProducts>
+      <Banner />
+      <LatestProducts latestProducts={latestProducts} />
+
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 4 }}
       >
-        <Services></Services>
+        <Services />
       </motion.div>
     </div>
+  );
+};
+
+const Home = () => {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex justify-center items-center h-screen">
+          <Loading /> {/* 🔹 এখানে Loading দেখাবে */}
+        </div>
+      }
+    >
+      <HomeContent />
+    </Suspense>
   );
 };
 

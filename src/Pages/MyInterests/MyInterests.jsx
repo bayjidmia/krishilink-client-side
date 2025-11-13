@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Authprovider/Context/Context";
+import Loading from "../../Component/Loading/Loading";
 
 const MyInterests = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [interests, setInterests] = useState([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate fetching data
     const fetchInterests = async () => {
       try {
-        // Replace this with your real API call
         const res = await fetch(
           `http://localhost:3000/api/myinterests?userEmail=${user.email}`
         );
@@ -18,14 +18,38 @@ const MyInterests = () => {
         setInterests(data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setDataLoading(false);
       }
     };
     if (user) fetchInterests();
   }, [user]);
+  const handleSort = (e) => {
+    const value = e.target.value;
+    let sortedData = [...interests];
+
+    if (value === "name") {
+      sortedData.sort((a, b) => a.cropName.localeCompare(b.cropName));
+    } else if (value === "quantity") {
+      sortedData.sort((a, b) => a.quantity - b.quantity);
+    }
+
+    setInterests(sortedData);
+  };
+
+  if (loading || dataLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
-      <h1 className="text-2xl font-bold mb-6">My Interests</h1>
+      <div className="flex justify-between mb-2">
+        <h1 className="text-2xl font-bold mb-6">My Interests</h1>
+        <select onChange={handleSort} className="btn">
+          <option value="name">Sort By name</option>
+          <option value="quantity">Sort By Quantity</option>
+        </select>
+      </div>
 
       {interests.length === 0 ? (
         <p className="text-center text-gray-500">

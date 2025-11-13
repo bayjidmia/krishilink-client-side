@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { useRef } from "react";
 import { toast } from "react-toastify";
 import ReceivedInterests from "./ReceivedInterests";
+import Loading from "../../Component/Loading/Loading";
 
 const CropsDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,6 @@ const CropsDetails = () => {
   const modalRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/allproducts/${id}`)
@@ -28,12 +28,7 @@ const CropsDetails = () => {
   }, [id]);
   console.log(crop);
 
-  if (loading)
-    return (
-      <div className="text-center mt-20 text-gray-500">
-        Loading crop details...
-      </div>
-    );
+  if (loading) return <Loading></Loading>;
   if (!crop)
     return (
       <div className="text-center mt-20 text-red-500">Crop not found!</div>
@@ -60,7 +55,7 @@ const CropsDetails = () => {
       message,
       status: "pending",
     };
-    setIsSubmitting(true);
+
     try {
       const res = await fetch("http://localhost:3000/interests", {
         method: "POST",
@@ -83,8 +78,6 @@ const CropsDetails = () => {
     } catch (err) {
       toast.error("Server error occurred");
       console.error(err);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -156,7 +149,6 @@ const CropsDetails = () => {
                   </h3>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Row 1: Quantity & Total Price */}
                     <div className="flex gap-4">
                       <div className="flex-1">
                         <label className="block mb-1 font-medium">

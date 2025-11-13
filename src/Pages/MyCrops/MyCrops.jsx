@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import CropRow from "./CropRow";
 import { AuthContext } from "../../Authprovider/Context/Context";
+import Loading from "../../Component/Loading/Loading";
 
 const MyCrops = () => {
   const { user } = useContext(AuthContext);
@@ -33,8 +34,20 @@ const MyCrops = () => {
     fetchCrops();
   }, [user?.email]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!crops.length) return <p>No crops found</p>;
+  if (loading) {
+    return <Loading></Loading>;
+  }
+  if (!crops.length)
+    return (
+      <div className="flex justify-center  mt-10 mb-10">
+        <div className="border border-gray-300 bg-white shadow-lg rounded-xl p-10 w-full max-w-md text-center">
+          <h2 className="text-2xl font-bold text-gray-700 mb-2">
+            No Crops Found
+          </h2>
+          <p className="text-gray-500">You haven't added any crops yet.</p>
+        </div>
+      </div>
+    );
 
   return (
     <div>
