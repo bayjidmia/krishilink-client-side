@@ -19,7 +19,7 @@ const CropRow = ({ crop, setCrops }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/api/crops/${_id}`, {
+        fetch(`https://3d-models-server-xi.vercel.app/api/crops/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

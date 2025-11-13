@@ -19,7 +19,7 @@ const CropsDetails = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allproducts/${id}`)
+    fetch(`https://3d-models-server-xi.vercel.app/allproducts/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCrop(data);
@@ -57,11 +57,14 @@ const CropsDetails = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/interests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newInterest),
-      });
+      const res = await fetch(
+        "https://3d-models-server-xi.vercel.app/interests",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newInterest),
+        }
+      );
 
       if (res.ok) {
         toast.success(" Interest submitted successfully!");

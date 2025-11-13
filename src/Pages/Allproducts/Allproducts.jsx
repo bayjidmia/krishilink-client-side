@@ -14,7 +14,7 @@ const Allproducts = () => {
   const location = useLocation();
   const addedCrop = location.state?.addedCrop;
   useEffect(() => {
-    fetch("http://localhost:3000/allproducts")
+    fetch("https://3d-models-server-xi.vercel.app/allproducts")
       .then((res) => res.json())
       .then((data) => setallproduct(data))
       .catch((err) => console.error(err))

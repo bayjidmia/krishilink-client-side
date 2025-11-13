@@ -45,7 +45,7 @@ const AddPost = () => {
     };
     console.log(crops);
 
-    fetch("http://localhost:3000/api/crops", {
+    fetch("https://3d-models-server-xi.vercel.app/api/crops", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(crops),

@@ -11,7 +11,7 @@ const MyInterests = () => {
     const fetchInterests = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/myinterests?userEmail=${user.email}`
+          `https://3d-models-server-xi.vercel.app/api/myinterests?userEmail=${user.email}`
         );
         const data = await res.json();
         console.log("the data is", data);

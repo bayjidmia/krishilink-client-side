@@ -5,9 +5,9 @@ import LatestProducts from "../../Pages/LatestProducts/LatestProducts";
 import { motion } from "framer-motion";
 import Loading from "../../Component/Loading/Loading"; // ✅ তোমার Loading component
 
-const latestproducts = fetch("http://localhost:3000/latestproducts").then(
-  (res) => res.json()
-);
+const latestproducts = fetch(
+  "https://3d-models-server-xi.vercel.app/latestproducts"
+).then((res) => res.json());
 
 const HomeContent = () => {
   const latestProducts = use(latestproducts);

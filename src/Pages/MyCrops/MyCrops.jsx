@@ -14,7 +14,7 @@ const MyCrops = () => {
     const fetchCrops = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/crops?userEmail=${encodeURIComponent(
+          `https://3d-models-server-xi.vercel.app/api/crops?userEmail=${encodeURIComponent(
             user.email
           )}`
         );

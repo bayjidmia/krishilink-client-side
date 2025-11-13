@@ -6,11 +6,14 @@ const ReceivedInterests = ({ crop, setCrop }) => {
 
   const handleAction = async (id, status) => {
     try {
-      const res = await fetch("http://localhost:3000/api/interests/update", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ interestId: id, cropsId: crop._id, status }),
-      });
+      const res = await fetch(
+        "https://3d-models-server-xi.vercel.app/api/interests/update",
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ interestId: id, cropsId: crop._id, status }),
+        }
+      );
       const data = await res.json();
 
       if (data.success) {
