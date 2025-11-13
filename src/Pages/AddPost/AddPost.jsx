@@ -43,7 +43,7 @@ const AddPost = () => {
         ownerName: user?.displayName || "Anonymous",
       },
     };
-    console.log(crops);
+    // console.log(crops);
 
     fetch("https://3d-models-server-xi.vercel.app/api/crops", {
       method: "POST",

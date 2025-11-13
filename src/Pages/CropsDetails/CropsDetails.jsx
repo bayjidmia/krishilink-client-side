@@ -10,7 +10,7 @@ import Loading from "../../Component/Loading/Loading";
 
 const CropsDetails = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const { user } = useContext(AuthContext);
   const [crop, setCrop] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ const CropsDetails = () => {
         setLoading(false);
       });
   }, [id]);
-  console.log(crop);
+  // console.log(crop);
 
   if (loading) return <Loading></Loading>;
   if (!crop)

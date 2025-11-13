@@ -8,7 +8,7 @@ import { FaRegEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
-  const { signIn, setuser, loading, GooglesignIn } = useContext(AuthContext);
+  const { signIn, setuser, GooglesignIn } = useContext(AuthContext);
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
   const [showpassword, setshowpassword] = useState(false);
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Login = () => {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    // console.log(email, password);
     if (!passwordRegex.test(password)) {
       toast.error(
         "Password must be at least 6 characters and include both uppercase and lowercase letters.",
@@ -39,7 +39,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setuser(user);
-        console.log(user);
+        // console.log(user);
         navigate("/");
       })
       .catch((error) => {
@@ -57,7 +57,7 @@ const Login = () => {
     GooglesignIn()
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         setuser(user);
         navigate("/");
       })

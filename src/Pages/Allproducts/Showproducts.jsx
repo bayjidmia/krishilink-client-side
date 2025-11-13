@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { NavLink } from "react-router";
 
 const Showproducts = ({ allProduct }) => {
-  console.log(allProduct);
+  // console.log(allProduct);
   return (
     <div>
       <motion.div

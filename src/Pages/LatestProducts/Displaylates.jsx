@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router";
 
 const Displaylates = ({ latestProduct }) => {
-  console.log(latestProduct);
+  // console.log(latestProduct);
 
   return (
     <motion.div
@@ -21,9 +22,14 @@ const Displaylates = ({ latestProduct }) => {
           </h2>
           <p>Owner Email: {latestProduct.owner.ownerEmail}</p>
           <div className="card-actions mt-2">
-            <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
-              View Details{" "}
-            </div>
+            <NavLink
+              className={"w-full"}
+              to={`/cropsdetails/${latestProduct._id}`}
+            >
+              <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
+                View Details{" "}
+              </div>
+            </NavLink>
           </div>
         </div>
       </div>
