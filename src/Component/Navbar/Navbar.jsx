@@ -109,7 +109,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Dropdown */}
         <div className="lg:hidden ml-auto">
-          <div className="dropdown">
+          <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
@@ -132,7 +132,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-green-700/90 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-10 p-2 bg-green-600 shadow rounded-box w-35"
             >
               <li>
                 <NavLink to="/">Home</NavLink>
