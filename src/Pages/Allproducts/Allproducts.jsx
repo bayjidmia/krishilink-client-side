@@ -43,7 +43,7 @@ const Allproducts = () => {
     <div className="max-w-7xl mx-auto">
       <div className="p-6">
         <div>
-          <h1 className="text-2xl text-center font-bold text-gray-700">
+          <h1 className="text-2xl text-center font-bold text-green-700">
             Explore All Products
           </h1>
 

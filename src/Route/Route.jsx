@@ -11,6 +11,7 @@ import MyInterests from "../Pages/MyInterests/MyInterests";
 import AddPost from "../Pages/AddPost/AddPost";
 import MyCrops from "../Pages/MyCrops/MyCrops";
 import Error from "../Pages/Error/Error";
+import Tips from "../Pages/ExtraFeature/Tips";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/allproducts",
         Component: Allproducts,
+      },
+      {
+        path: "/tips",
+        Component: Tips,
       },
       {
         path: "/profile",

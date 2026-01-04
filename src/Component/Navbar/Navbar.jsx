@@ -40,6 +40,9 @@ const Navbar = () => {
             <li>
               <NavLink to="/allproducts">All Crops</NavLink>
             </li>
+            <li>
+              <NavLink to="/tips">Tips</NavLink>
+            </li>
 
             {user && (
               <>
@@ -140,7 +143,9 @@ const Navbar = () => {
               <li>
                 <NavLink to="/allproducts">All Crops</NavLink>
               </li>
-
+              <li>
+                <NavLink to="/tips">Tips</NavLink>
+              </li>
               {user && (
                 <>
                   <li>
