@@ -77,14 +77,16 @@ const Services = () => {
   ];
   return (
     <div>
-      <section id="services" className="py-16 bg-gray-50">
+      <section id="services" className="py-16">
         <div className="container mx-auto text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">Our Services</h2>
+          <h2 className="text-4xl text-green-800 font-bold mb-4">
+            Our Services
+          </h2>
           <p className="text-gray-600 text-lg">
             Providing fresh produce every single day
           </p>
         </div>
-        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
           {servicesData.map((service) => (
             <div
               key={service.id}

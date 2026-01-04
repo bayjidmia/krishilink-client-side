@@ -4,6 +4,9 @@ import Services from "../Services/Services";
 import LatestProducts from "../../Pages/LatestProducts/LatestProducts";
 import { motion } from "framer-motion";
 import Loading from "../../Component/Loading/Loading"; // ✅ তোমার Loading component
+import HowItWorks from "../../Pages/ExtraFeature/HowItWorks";
+import Statistics from "../../Pages/ExtraFeature/Statistics";
+import Testimonials from "../../Pages/ExtraFeature/Testimonials";
 
 const latestproducts = fetch(
   "https://3d-models-server-xi.vercel.app/latestproducts"
@@ -24,6 +27,9 @@ const HomeContent = () => {
       >
         <Services />
       </motion.div>
+      <HowItWorks></HowItWorks>
+      <Statistics></Statistics>
+      <Testimonials></Testimonials>
     </div>
   );
 };
@@ -33,7 +39,7 @@ const Home = () => {
     <Suspense
       fallback={
         <div className="flex justify-center items-center h-screen">
-          <Loading /> {/* 🔹 এখানে Loading দেখাবে */}
+          <Loading />
         </div>
       }
     >

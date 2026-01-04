@@ -18,7 +18,7 @@ const Navbar = () => {
   };
   return (
     <nav className="backdrop-blur-md bg-green-600 text-white shadow-lg sticky top-0 z-50">
-      <div className="navbar container mx-auto px-4 py-2">
+      <div className="navbar max-w-7xl mx-auto px-4 py-2">
         {/* Left: Logo + Brand Name */}
         <div className="navbar-start flex items-center gap-3">
           <img

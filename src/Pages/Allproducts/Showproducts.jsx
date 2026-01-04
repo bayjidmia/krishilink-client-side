@@ -26,7 +26,7 @@ const Showproducts = ({ allProduct }) => {
                 className={"w-full"}
                 to={`/cropsdetails/${allProduct._id}`}
               >
-                <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
+                <div className="btn w-full btn-outline hover:bg-green-500 hover:text-white cursor-pointer ">
                   View Details{" "}
                 </div>
               </NavLink>

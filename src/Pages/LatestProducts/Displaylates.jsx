@@ -26,7 +26,7 @@ const Displaylates = ({ latestProduct }) => {
               className={"w-full"}
               to={`/cropsdetails/${latestProduct._id}`}
             >
-              <div className="badge w-full badge-outline hover:bg-green-500 hover:text-white cursor-pointer ">
+              <div className="btn w-full btn-outline hover:bg-green-500 hover:text-white cursor-pointer ">
                 View Details{" "}
               </div>
             </NavLink>

@@ -40,7 +40,7 @@ const MyCrops = () => {
   if (!crops.length)
     return (
       <div className="flex justify-center  mt-10 mb-10">
-        <div className="border border-gray-300 bg-white shadow-lg rounded-xl p-10 w-full max-w-md text-center">
+        <div className="border  border-gray-300 bg-white shadow-lg rounded-xl p-10 w-full max-w-md text-center">
           <h2 className="text-2xl font-bold text-gray-700 mb-2">
             No Crops Found
           </h2>

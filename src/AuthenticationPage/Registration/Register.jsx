@@ -72,12 +72,12 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-400 via-emerald-500 to-green-700 p-6">
+    <div className="flex items-center justify-center min-h-screen  p-6">
       <motion.div
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="w-full max-w-md bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl p-10 border border-white/30"
+        className="w-full max-w-md bg-gradient-to-br from-green-400 to-green-500  bg-white/20 backdrop-blur-2xl rounded-3xl shadow-2xl p-10 border border-white/30"
       >
         <h2 className="text-4xl font-extrabold text-center text-white mb-8 drop-shadow-lg">
           🌿 Create Your Account

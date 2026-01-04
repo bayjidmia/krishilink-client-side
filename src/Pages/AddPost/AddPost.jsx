@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Authprovider/Context/Context";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const AddPost = () => {
   const { user } = useContext(AuthContext);
@@ -44,24 +45,42 @@ const AddPost = () => {
       },
     };
     // console.log(crops);
-
-    fetch("https://3d-models-server-xi.vercel.app/api/crops", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(crops),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          alert("Crop added successfully!");
-          e.target.reset();
-          navigate("/allproducts", data);
-        }
-      })
-      .catch((err) => {
-        console.error("Error adding crop:", err);
-        alert("Something went wrong!");
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to add this crop?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#22c55e",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, Add it",
+      cancelButtonText: "No, Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ✅ User clicked OK
+        fetch("https://3d-models-server-xi.vercel.app/api/crops", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(crops),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              Swal.fire({
+                icon: "success",
+                title: "Added!",
+                text: "Crop added successfully 🌾",
+                timer: 1500,
+                showConfirmButton: false,
+              });
+              e.target.reset();
+              navigate("/allproducts");
+            }
+          })
+          .catch(() => {
+            Swal.fire("Error", "Something went wrong!", "error");
+          });
+      }
+    });
   };
 
   return (
@@ -198,7 +217,7 @@ const AddPost = () => {
         <div className="md:col-span-2 flex justify-center mt-4">
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-2xl shadow-md transition-all duration-200"
+            className="px-6 md:px-8 py-2 md:py-3 border-2 border-b-gray-700 text-black font-semibold rounded-lg transition-all duration-300 hover:bg-green-500 hover:border-green-500 hover:text-white"
           >
             Add Crop
           </button>
