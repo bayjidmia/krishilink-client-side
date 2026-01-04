@@ -1,4 +1,3 @@
-import React, { Suspense, use } from "react";
 import Banner from "../../Pages/Banner/Banner";
 import Services from "../Services/Services";
 import LatestProducts from "../../Pages/LatestProducts/LatestProducts";
@@ -7,13 +6,36 @@ import Loading from "../../Component/Loading/Loading"; // ✅ তোমার Lo
 import HowItWorks from "../../Pages/ExtraFeature/HowItWorks";
 import Statistics from "../../Pages/ExtraFeature/Statistics";
 import Testimonials from "../../Pages/ExtraFeature/Testimonials";
-
-const latestproducts = fetch(
-  "https://3d-models-server-xi.vercel.app/latestproducts"
-).then((res) => res.json());
+import { useQuery } from "@tanstack/react-query";
+import useAxiossecure from "../Hook/useAxiossecure";
 
 const HomeContent = () => {
-  const latestProducts = use(latestproducts);
+  const axiosSecure = useAxiossecure();
+  const {
+    data: latestProducts = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["latestProducts"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/latestproducts");
+      const data = await res.data;
+
+      return data;
+    },
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loading></Loading>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <p className="text-center text-red-500">Something went wrong</p>;
+  }
 
   return (
     <div>
@@ -35,17 +57,7 @@ const HomeContent = () => {
 };
 
 const Home = () => {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex justify-center items-center h-screen">
-          <Loading />
-        </div>
-      }
-    >
-      <HomeContent />
-    </Suspense>
-  );
+  return <HomeContent />;
 };
 
 export default Home;

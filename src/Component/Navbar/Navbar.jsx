@@ -95,12 +95,12 @@ const Navbar = () => {
                 onClick={handlelogout}
                 className="px-5 py-2 rounded-lg bg-green-700 text-white font-semibold border border-white/50 hover:bg-green-800 hover:scale-105 transition duration-300"
               >
-                <a href="">Logout</a>
+                Logout
               </button>
             ) : (
               <NavLink to={"/login"}>
                 <button className="px-5 py-2 rounded-lg bg-green-700 text-white font-semibold border border-white/50 hover:bg-green-800 hover:scale-105 transition duration-300">
-                  <a href="">Login</a>
+                  Login
                 </button>
               </NavLink>
             )}
